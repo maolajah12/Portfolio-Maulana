@@ -45,9 +45,12 @@ const CountdownClock = () => {
         const logo = document.getElementById('navbar-logo');
         if (logo) {
             const rect = logo.getBoundingClientRect();
+            const isMobile = window.innerWidth <= 768;
             
-            // X: Tepat di sebelah kanan logo Portfolio + gap 90px (karena jam mengecil dari tengahnya)
-            const targetX = rect.right + 90; 
+            // X: Tepat di sebelah kanan logo Portfolio
+            // Di mobile: gap 50px agar pas berdampingan dengan logo dan tidak menabrak hamburger menu
+            const gap = isMobile ? 50 : 90;
+            const targetX = rect.right + gap; 
             // Y: Sejajar secara vertikal dengan tengah-tengah logo Portfolio
             const targetY = rect.top + (rect.height / 2);
             
@@ -55,8 +58,9 @@ const CountdownClock = () => {
             const moveX = targetX - (window.innerWidth / 2);
             const moveY = targetY - (window.innerHeight / 2);
             
-            // Scale dibesarkan sedikit ke 0.15 agar lebih terbaca
-            setDockTransform(`translate(${moveX}px, ${moveY}px) scale(0.15)`);
+            // Scale di mobile vs desktop
+            const scale = isMobile ? 0.32 : 0.15;
+            setDockTransform(`translate(${moveX}px, ${moveY}px) scale(${scale})`);
         }
     }, []);
 
@@ -238,8 +242,8 @@ const CountdownClock = () => {
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                width: '400px',
-                height: '400px',
+                width: 'min(400px, 85vw)',
+                height: 'min(400px, 85vw)',
                 borderRadius: '50%',
                 border: '1px solid rgba(255, 59, 29, 0.03)',
                 pointerEvents: 'none',
@@ -256,6 +260,9 @@ const CountdownClock = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     gap: '1rem',
+                    padding: '0 1.5rem',
+                    textAlign: 'center',
+                    maxWidth: '90vw',
                     opacity: isMounted ? 1 : 0,
                     transform: isMounted ? 'translateY(0)' : 'translateY(30px)',
                     transition: 'opacity 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1)',
@@ -263,7 +270,7 @@ const CountdownClock = () => {
                 }}>
                     <h2 style={{
                         color: '#FFFFFF',
-                        fontSize: '2rem',
+                        fontSize: 'clamp(1.6rem, 5vw, 2rem)',
                         fontWeight: 700,
                         letterSpacing: '2px',
                         margin: 0,
@@ -277,12 +284,12 @@ const CountdownClock = () => {
                             display: 'flex',
                             alignItems: 'center',
                             gap: '0.5rem',
-                            padding: '1rem 3rem',
+                            padding: '0.9rem 2.5rem',
                             background: '#FF3B1D',
                             color: '#FFFFFF',
                             border: 'none',
                             borderRadius: '50px',
-                            fontSize: '1.2rem',
+                            fontSize: 'clamp(1rem, 3.5vw, 1.2rem)',
                             fontWeight: 700,
                             letterSpacing: '2px',
                             cursor: 'pointer',
@@ -315,45 +322,53 @@ const CountdownClock = () => {
                     alignItems: 'center',
                     gap: '0.5rem',
                     marginBottom: '0.5rem',
+                    opacity: isShrinkingOrDocked ? 0 : 0.6,
+                    transition: 'opacity 0.5s ease',
                 }}>
                     <span style={{
-                        fontSize: '0.7rem',
+                        fontSize: 'clamp(0.65rem, 2vw, 0.7rem)',
                         color: '#FF3B1D',
                         fontWeight: 600,
-                        letterSpacing: '4px',
+                        letterSpacing: 'clamp(2px, 0.8vw, 4px)',
                         textTransform: 'uppercase',
-                        opacity: 0.6,
                     }}>
                         ⏳ Time to work !
                     </span>
                 </div>
 
                 <div style={{
-                    fontSize: '8rem',
+                    fontSize: 'clamp(2.6rem, 11.5vw, 8rem)',
                     fontWeight: 700,
                     color: '#FFFFFF',
                     fontFamily: "'Orbitron', 'Inter', sans-serif",
-                    letterSpacing: '6px',
+                    letterSpacing: 'clamp(2px, 1vw, 6px)',
                     textShadow: '0 0 60px rgba(255, 59, 29, 0.05)',
                     lineHeight: 1,
                     marginBottom: '0.5rem',
+                    whiteSpace: 'nowrap',
                 }}>
                     {time}
                 </div>
 
                 <div style={{
-                    width: '100px',
+                    width: 'clamp(60px, 18vw, 100px)',
                     height: '2px',
                     background: 'linear-gradient(90deg, transparent, rgba(255, 59, 29, 0.3), transparent)',
                     marginBottom: '0.5rem',
+                    opacity: isShrinkingOrDocked ? 0 : 1,
+                    transition: 'opacity 0.5s ease',
                 }} />
 
                 <div style={{
-                    fontSize: '1.2rem',
+                    fontSize: 'clamp(0.85rem, 3.2vw, 1.2rem)',
                     color: '#A0A0A0',
                     fontWeight: 400,
-                    letterSpacing: '2px',
+                    letterSpacing: 'clamp(1px, 0.5vw, 2px)',
                     fontFamily: "'Inter', sans-serif",
+                    textAlign: 'center',
+                    padding: '0 1rem',
+                    opacity: isShrinkingOrDocked ? 0 : 1,
+                    transition: 'opacity 0.5s ease',
                 }}>
                     {date}
                 </div>

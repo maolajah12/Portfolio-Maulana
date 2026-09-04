@@ -48,7 +48,7 @@ const Navbar = () => {
                     <span style={{ color: '#FF3B1D' }}>Portfolio</span><span style={{ color: '#666' }}>.</span>
                 </div>
 
-                <div style={{
+                <div className="desktop-menu" style={{
                     display: 'flex',
                     gap: '2.5rem',
                     alignItems: 'center',
@@ -190,8 +190,13 @@ const Navbar = () => {
           .mobile-menu-btn { 
             display: block !important; 
           }
-          nav > div > div:first-of-type:not(.mobile-menu-btn) { 
+          .desktop-menu { 
             display: none !important; 
+          }
+          #navbar-logo {
+            display: flex !important;
+            font-size: 1.4rem !important;
+            margin-right: 95px !important;
           }
           nav {
             padding: 0.8rem 1.2rem !important;
