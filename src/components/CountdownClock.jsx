@@ -47,28 +47,28 @@ const CountdownClock = () => {
         if (logo) {
             const rect = logo.getBoundingClientRect();
             const isMobile = window.innerWidth <= 768;
-            
+
             // Ukuran docked clock yang presisi dan rapi
             const targetDockedWidth = isMobile ? 84 : 108;
             const marginFromLogo = isMobile ? 18 : 24; // Jarak pasti dari sisi kanan logo "Portfolio."
-            
+
             // Hitung lebar unscaled teks jam saat ini untuk menentukan scale dinamis yang presisi
             let unscaledWidth = 350;
             if (clockTextRef.current) {
                 unscaledWidth = clockTextRef.current.offsetWidth || 350;
             }
-            
+
             const dynamicScale = targetDockedWidth / unscaledWidth;
-            
+
             // X: Posisi tengah clock target = sisi kanan logo + margin + setengah lebar target clock
-            const targetX = rect.right + marginFromLogo + (targetDockedWidth / 2); 
+            const targetX = rect.right + marginFromLogo + (targetDockedWidth / 2);
             // Y: Sejajar tepat secara vertikal dengan tengah logo Portfolio
             const targetY = rect.top + (rect.height / 2);
-            
+
             // Selisih antara posisi target dengan titik tengah layar (0,0 dari transform)
             const moveX = targetX - (window.innerWidth / 2);
             const moveY = targetY - (window.innerHeight / 2);
-            
+
             setDockTransform(`translate(${moveX}px, ${moveY}px) scale(${dynamicScale.toFixed(4)})`);
         }
     }, []);
@@ -121,7 +121,7 @@ const CountdownClock = () => {
 
     const fadeInAudio = () => {
         if (!audioRef.current) return;
-        
+
         audioRef.current.volume = 0;
         let vol = 0;
         const fadeInterval = setInterval(() => {
@@ -138,7 +138,7 @@ const CountdownClock = () => {
 
     const fadeOutAudio = () => {
         if (!audioRef.current) return;
-        
+
         let vol = 1;
         const fadeInterval = setInterval(() => {
             vol -= 0.05;
@@ -224,7 +224,7 @@ const CountdownClock = () => {
         justifyContent: 'center',
         gap: '0.5rem',
         transition: stage === 'shrinking'
-            ? 'all 1.5s ease-in-out' 
+            ? 'all 1.5s ease-in-out'
             : stage === 'ticking' ? 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none',
         transform: isShrinkingOrDocked ? dockTransform : stage === 'initial' ? 'translate(0, 20px) scale(0.9)' : 'translate(0, 0) scale(1)',
         opacity: stage === 'initial' ? 0 : 1, // Sembunyikan jam saat initial
@@ -319,7 +319,7 @@ const CountdownClock = () => {
                         Ready!
                     </button>
                     <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem', letterSpacing: '1px' }}>
-                        Click to enter portfolio
+                        Click ready to enter into my portfolio
                     </span>
                 </div>
             )}

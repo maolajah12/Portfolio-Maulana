@@ -297,7 +297,7 @@ const ProjectDetail = ({ project, onClose }) => {
                             flexWrap: 'wrap',
                             gap: '0.6rem',
                         }}>
-                            {['Flutter', 'Python', 'TensorFlow', 'Computer Vision', 'Mobile AI'].map((tech, i) => (
+                            {project.tools && project.tools.map((tech, i) => (
                                 <span
                                     key={i}
                                     style={{
