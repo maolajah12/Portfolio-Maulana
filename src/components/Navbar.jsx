@@ -196,7 +196,7 @@ const Navbar = () => {
           #navbar-logo {
             display: flex !important;
             font-size: 1.4rem !important;
-            margin-right: 95px !important;
+            margin-right: 120px !important;
           }
           nav {
             padding: 0.8rem 1.2rem !important;

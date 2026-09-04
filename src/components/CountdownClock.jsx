@@ -14,6 +14,7 @@ const CountdownClock = () => {
 
     const audioRef = useRef(null);
     const intervalRef = useRef(null);
+    const clockTextRef = useRef(null);
 
     // Format waktu
     useEffect(() => {
@@ -47,20 +48,28 @@ const CountdownClock = () => {
             const rect = logo.getBoundingClientRect();
             const isMobile = window.innerWidth <= 768;
             
-            // X: Tepat di sebelah kanan logo Portfolio
-            // Di mobile: gap 50px agar pas berdampingan dengan logo dan tidak menabrak hamburger menu
-            const gap = isMobile ? 50 : 90;
-            const targetX = rect.right + gap; 
-            // Y: Sejajar secara vertikal dengan tengah-tengah logo Portfolio
+            // Ukuran docked clock yang presisi dan rapi
+            const targetDockedWidth = isMobile ? 84 : 108;
+            const marginFromLogo = isMobile ? 18 : 24; // Jarak pasti dari sisi kanan logo "Portfolio."
+            
+            // Hitung lebar unscaled teks jam saat ini untuk menentukan scale dinamis yang presisi
+            let unscaledWidth = 350;
+            if (clockTextRef.current) {
+                unscaledWidth = clockTextRef.current.offsetWidth || 350;
+            }
+            
+            const dynamicScale = targetDockedWidth / unscaledWidth;
+            
+            // X: Posisi tengah clock target = sisi kanan logo + margin + setengah lebar target clock
+            const targetX = rect.right + marginFromLogo + (targetDockedWidth / 2); 
+            // Y: Sejajar tepat secara vertikal dengan tengah logo Portfolio
             const targetY = rect.top + (rect.height / 2);
             
             // Selisih antara posisi target dengan titik tengah layar (0,0 dari transform)
             const moveX = targetX - (window.innerWidth / 2);
             const moveY = targetY - (window.innerHeight / 2);
             
-            // Scale di mobile vs desktop
-            const scale = isMobile ? 0.32 : 0.15;
-            setDockTransform(`translate(${moveX}px, ${moveY}px) scale(${scale})`);
+            setDockTransform(`translate(${moveX}px, ${moveY}px) scale(${dynamicScale.toFixed(4)})`);
         }
     }, []);
 
@@ -321,9 +330,11 @@ const CountdownClock = () => {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.5rem',
-                    marginBottom: '0.5rem',
+                    marginBottom: isShrinkingOrDocked ? '0' : '0.5rem',
+                    maxHeight: isShrinkingOrDocked ? '0' : '30px',
                     opacity: isShrinkingOrDocked ? 0 : 0.6,
-                    transition: 'opacity 0.5s ease',
+                    transition: 'all 0.5s ease',
+                    overflow: 'hidden',
                 }}>
                     <span style={{
                         fontSize: 'clamp(0.65rem, 2vw, 0.7rem)',
@@ -336,27 +347,29 @@ const CountdownClock = () => {
                     </span>
                 </div>
 
-                <div style={{
+                <div ref={clockTextRef} style={{
                     fontSize: 'clamp(2.6rem, 11.5vw, 8rem)',
                     fontWeight: 700,
                     color: '#FFFFFF',
                     fontFamily: "'Orbitron', 'Inter', sans-serif",
-                    letterSpacing: 'clamp(2px, 1vw, 6px)',
+                    letterSpacing: isShrinkingOrDocked ? '2px' : 'clamp(2px, 1vw, 6px)',
                     textShadow: '0 0 60px rgba(255, 59, 29, 0.05)',
                     lineHeight: 1,
-                    marginBottom: '0.5rem',
+                    marginBottom: isShrinkingOrDocked ? '0' : '0.5rem',
                     whiteSpace: 'nowrap',
+                    transition: 'all 0.5s ease',
                 }}>
                     {time}
                 </div>
 
                 <div style={{
                     width: 'clamp(60px, 18vw, 100px)',
-                    height: '2px',
+                    height: isShrinkingOrDocked ? '0' : '2px',
                     background: 'linear-gradient(90deg, transparent, rgba(255, 59, 29, 0.3), transparent)',
-                    marginBottom: '0.5rem',
+                    marginBottom: isShrinkingOrDocked ? '0' : '0.5rem',
                     opacity: isShrinkingOrDocked ? 0 : 1,
-                    transition: 'opacity 0.5s ease',
+                    transition: 'all 0.5s ease',
+                    overflow: 'hidden',
                 }} />
 
                 <div style={{
@@ -367,8 +380,10 @@ const CountdownClock = () => {
                     fontFamily: "'Inter', sans-serif",
                     textAlign: 'center',
                     padding: '0 1rem',
+                    maxHeight: isShrinkingOrDocked ? '0' : '40px',
                     opacity: isShrinkingOrDocked ? 0 : 1,
-                    transition: 'opacity 0.5s ease',
+                    transition: 'all 0.5s ease',
+                    overflow: 'hidden',
                 }}>
                     {date}
                 </div>
