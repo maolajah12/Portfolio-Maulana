@@ -112,12 +112,12 @@ const Contact = () => {
             <div style={{
                 maxWidth: '1100px',
                 width: '100%',
-                padding: '0 2rem',
+                padding: '0 clamp(1rem, 4vw, 2rem)',
             }}>
-                <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                <div style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>
                     <h2 style={{
                         color: '#FFFFFF',
-                        fontSize: '1.8rem',
+                        fontSize: 'clamp(1.6rem, 5vw, 2rem)',
                         fontWeight: 700,
                         marginBottom: '0.5rem',
                     }}>
@@ -125,7 +125,7 @@ const Contact = () => {
                     </h2>
                     <p style={{
                         color: '#A0A0A0',
-                        fontSize: '0.95rem',
+                        fontSize: 'clamp(0.85rem, 2.5vw, 0.95rem)',
                         maxWidth: '500px',
                         margin: '0 auto',
                     }}>
@@ -133,10 +133,10 @@ const Contact = () => {
                     </p>
                 </div>
 
-                <div style={{
+                <div className="contact-layout" style={{
                     display: 'grid',
                     gridTemplateColumns: '1fr 1.4fr',
-                    gap: '3rem',
+                    gap: '2.5rem',
                     alignItems: 'stretch',
                 }}>
                     {/* LEFT - CONTACT INFO */}
@@ -258,7 +258,7 @@ const Contact = () => {
                             <p style={{ color: '#A0A0A0', fontSize: '0.85rem' }}>Your message will be sent directly to my email</p>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                        <div className="contact-name-email" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                             <input
                                 type="text"
                                 name="from_name"
@@ -391,10 +391,15 @@ const Contact = () => {
             </div>
 
             <style>{`
-                @media (max-width: 768px) {
-                    #contact > div > div:last-of-type {
+                @media (max-width: 850px) {
+                    .contact-layout {
                         grid-template-columns: 1fr !important;
                         gap: 2rem !important;
+                    }
+                }
+                @media (max-width: 550px) {
+                    .contact-name-email {
+                        grid-template-columns: 1fr !important;
                     }
                 }
                 @keyframes spin {

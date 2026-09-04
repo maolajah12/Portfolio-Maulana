@@ -105,9 +105,11 @@ const Hero = () => {
             style={{
                 minHeight: '100vh',
                 display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
                 alignItems: 'center',
-                paddingTop: '60px',
-                paddingBottom: '2rem',
+                paddingTop: '90px',
+                paddingBottom: '2.5rem',
                 position: 'relative',
                 overflow: 'hidden',
                 background: '#0A0A0A',
@@ -124,7 +126,7 @@ const Hero = () => {
                 pointerEvents: 'none',
             }} />
 
-            <div className="container" style={{
+            <div className="container hero-container" style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
                 gap: '3rem',
@@ -137,7 +139,7 @@ const Hero = () => {
                 width: '100%',
             }}>
                 {/* LEFT CONTENT */}
-                <div>
+                <div className="hero-left">
                     <div
                         style={{
                             display: 'inline-flex',
@@ -238,12 +240,12 @@ const Hero = () => {
                         Junior Software Engineer | Web & Mobile Developer
                     </p>
 
-                    <p style={{
+                    <p className="hero-bio" style={{
                         color: '#FFFFFF',
                         maxWidth: '520px',
                         marginBottom: '2rem',
                         lineHeight: 1.8,
-                        fontSize: '0.95rem',
+                        fontSize: 'clamp(0.88rem, 2.5vw, 0.95rem)',
                         textAlign: 'justify',
                     }}>
                         I'm an Informatics Engineering graduate from the University of North Sumatra with a strong interest in building digital products that are functional, smart, and user-friendly.
@@ -253,7 +255,7 @@ const Hero = () => {
                         What I bring to the table is not just technical skills, but the ability to connect the dots between design, data, and code. I'm a fast learner, highly adaptable, and always excited to take on new challenges. Right now, I'm looking for a team where I can grow, contribute, and learn from experienced professionals.
                     </p>
 
-                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                    <div className="hero-cta" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                         <a
                             href={cvPdf}
                             download="CV_Maulana_Al_Ghifari.pdf"
@@ -289,7 +291,7 @@ const Hero = () => {
                 </div>
 
                 {/* RIGHT - FOTO + SOCIAL MEDIA */}
-                <div style={{
+                <div className="hero-right" style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -412,44 +414,48 @@ const Hero = () => {
                 </div>
             </div>
 
-            <div style={{
-                position: 'absolute',
-                bottom: '2rem',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '0.5rem',
-                width: '100%',
-                maxWidth: '1200px',
-                padding: '0 2rem',
-            }}>
-                <div style={{
+            {/* SCROLL FOR MORE - Konsisten & Responsif */}
+            <div
+                className="scroll-indicator"
+                onClick={() => {
+                    const servicesSection = document.getElementById('services');
+                    if (servicesSection) {
+                        servicesSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }}
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '0.4rem',
                     width: '100%',
-                    height: '2px',
-                    background: 'rgba(255, 255, 255, 0.15)',
+                    maxWidth: '1200px',
+                    padding: '0 2rem',
+                    marginTop: 'clamp(2.5rem, 6vh, 4.5rem)',
+                    cursor: 'pointer',
+                    zIndex: 2,
+                }}
+            >
+                <div style={{
+                    width: 'clamp(100px, 35%, 260px)',
+                    height: '1px',
+                    background: 'linear-gradient(90deg, transparent, rgba(255, 59, 29, 0.4), transparent)',
+                    marginBottom: '0.4rem',
                 }} />
 
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    gap: '0.15rem',
+                    gap: '0.2rem',
                 }}>
-                    <div style={{
-                        width: '2px',
-                        height: '12px',
-                        background: 'rgba(255, 255, 255, 0.2)',
-                    }} />
-
                     <svg
-                        width="14"
-                        height="14"
+                        width="16"
+                        height="16"
                         viewBox="0 0 24 24"
                         fill="none"
-                        stroke="rgba(255, 255, 255, 0.3)"
-                        strokeWidth="3"
+                        stroke="#FF3B1D"
+                        strokeWidth="2.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         style={{
@@ -461,12 +467,12 @@ const Hero = () => {
                 </div>
 
                 <span style={{
-                    color: 'rgba(255, 255, 255, 0.4)',
-                    fontSize: '0.65rem',
-                    letterSpacing: '2px',
+                    color: 'rgba(255, 255, 255, 0.5)',
+                    fontSize: '0.7rem',
+                    letterSpacing: '3px',
                     textTransform: 'uppercase',
                     fontWeight: 600,
-                    marginTop: '0.15rem',
+                    transition: 'color 0.3s ease',
                 }}>
                     Scroll for more
                 </span>
@@ -480,25 +486,57 @@ const Hero = () => {
                 }
 
                 @keyframes bounceDown {
-                    0%, 100% { transform: translateY(0); opacity: 0.4; }
-                    50% { transform: translateY(4px); opacity: 1; }
+                    0%, 100% { transform: translateY(0); opacity: 0.5; }
+                    50% { transform: translateY(5px); opacity: 1; }
+                }
+
+                .scroll-indicator:hover span {
+                    color: #FF3B1D !important;
                 }
 
                 @media (max-width: 992px) {
-                    section .container {
+                    #home {
+                        padding-top: 80px !important;
+                        padding-bottom: 2rem !important;
+                    }
+                    #home .hero-container {
                         grid-template-columns: 1fr !important;
                         text-align: center;
                         gap: 2rem !important;
                     }
-                    section h1 { font-size: 2.8rem !important; }
-                    section div:last-of-type { order: -1; }
-                    section div:last-of-type > div:first-of-type { max-width: 350px !important; margin: 0 auto; }
-                    section p { text-align: center !important; }
+                    #home .hero-right {
+                        order: -1 !important;
+                    }
+                    #home .hero-right > div:first-of-type {
+                        max-width: min(320px, 80vw) !important;
+                        margin: 0 auto;
+                    }
+                    #home .hero-left {
+                        order: 1 !important;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                    }
+                    #home h1 { 
+                        font-size: clamp(2.2rem, 7vw, 3rem) !important; 
+                    }
+                    #home .hero-bio { 
+                        text-align: center !important; 
+                        max-width: 100% !important;
+                        margin-bottom: 1.5rem !important;
+                    }
+                    #home .hero-cta { 
+                        justify-content: center !important; 
+                    }
                 }
 
                 @media (max-width: 480px) {
-                    section h1 { font-size: 2.2rem !important; }
-                    section div:last-of-type > div:first-of-type { max-width: 280px !important; }
+                    #home h1 { 
+                        font-size: clamp(1.8rem, 6.5vw, 2.4rem) !important; 
+                    }
+                    #home .hero-right > div:first-of-type { 
+                        max-width: 260px !important; 
+                    }
                 }
             `}</style>
         </section>

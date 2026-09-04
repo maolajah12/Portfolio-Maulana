@@ -26,7 +26,7 @@ const Services = () => {
 
     return (
         <section id="services" style={{
-            padding: '10rem 0',
+            padding: 'clamp(4rem, 8vw, 7.5rem) 0',
             background: '#0A0A0A',
             display: 'flex',
             justifyContent: 'center',
@@ -36,53 +36,54 @@ const Services = () => {
             <div style={{
                 maxWidth: '1150px',
                 width: '100%',
-                padding: '0 2rem',
+                padding: '0 clamp(1rem, 4vw, 2rem)',
                 position: 'relative',
                 zIndex: 1,
             }}>
-                <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+                <div style={{ textAlign: 'center', marginBottom: 'clamp(1.8rem, 4vw, 2.5rem)' }}>
                     <h2 style={{
                         color: '#FFFFFF',
-                        fontSize: '1.8rem',
+                        fontSize: 'clamp(1.6rem, 5vw, 2rem)',
                         fontWeight: 700,
-                        marginBottom: '0.25rem',
+                        marginBottom: '0.35rem',
                     }}>
                         What Do I Offer
                     </h2>
                     <p style={{
                         color: '#A0A0A0',
-                        fontSize: '0.95rem',
+                        fontSize: 'clamp(0.85rem, 2.5vw, 0.95rem)',
                         maxWidth: '500px',
                         margin: '0 auto',
+                        lineHeight: 1.6,
                     }}>
                         Creates Professional Design That's Oriented Towards Client Needs
                     </p>
                 </div>
 
-                <div style={{
+                <div className="services-box" style={{
                     background: 'rgba(255, 255, 255, 0.03)',
                     borderRadius: '20px',
-                    padding: '2.5rem 3rem',
+                    padding: 'clamp(1.5rem, 4vw, 3rem)',
                     border: '1px solid rgba(255, 255, 255, 0.04)',
                     maxWidth: '1050px',
                     margin: '0 auto',
                 }}>
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(4, 1fr)',
-                        gap: '2rem',
-                    }}>
+                    <div className="services-grid">
                         {services.map((service, index) => (
                             <div
                                 key={index}
+                                className="service-card"
                                 style={{
-                                    padding: '2rem 1.5rem',
+                                    padding: 'clamp(1.5rem, 3vw, 2rem) 1.2rem',
                                     borderRadius: '16px',
                                     textAlign: 'center',
                                     transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
                                     cursor: 'default',
                                     background: 'rgba(255, 255, 255, 0.02)',
                                     border: '1px solid rgba(255, 255, 255, 0.04)',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
                                 }}
                                 onMouseEnter={(e) => {
                                     e.currentTarget.style.transform = 'translateY(-6px)';
@@ -97,7 +98,17 @@ const Services = () => {
                                     e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
                                 }}
                             >
-                                <div style={{ color: '#FF3B1D', marginBottom: '1rem', display: 'flex', justifyContent: 'center' }}>
+                                <div style={{
+                                    color: '#FF3B1D',
+                                    marginBottom: '1rem',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width: '56px',
+                                    height: '56px',
+                                    borderRadius: '14px',
+                                    background: 'rgba(255, 59, 29, 0.08)',
+                                }}>
                                     {service.icon}
                                 </div>
                                 <h3 style={{
@@ -108,7 +119,7 @@ const Services = () => {
                                 }}>
                                     {service.title}
                                 </h3>
-                                <p style={{ color: '#A0A0A0', lineHeight: 1.5, fontSize: '0.82rem' }}>
+                                <p style={{ color: '#A0A0A0', lineHeight: 1.6, fontSize: '0.85rem' }}>
                                     {service.desc}
                                 </p>
                             </div>
@@ -116,6 +127,26 @@ const Services = () => {
                     </div>
                 </div>
             </div>
+
+            <style>{`
+                .services-grid {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 1.5rem;
+                }
+                @media (max-width: 992px) {
+                    .services-grid {
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 1.2rem;
+                    }
+                }
+                @media (max-width: 600px) {
+                    .services-grid {
+                        grid-template-columns: 1fr;
+                        gap: 1rem;
+                    }
+                }
+            `}</style>
         </section>
     );
 };

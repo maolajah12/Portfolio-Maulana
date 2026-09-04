@@ -71,7 +71,7 @@ const Projects = () => {
 
     return (
         <section id="projects" style={{
-            padding: '11rem 0',
+            padding: 'clamp(4rem, 8vw, 7.5rem) 0',
             background: '#0A0A0A',
             position: 'relative',
             overflow: 'hidden'
@@ -79,7 +79,7 @@ const Projects = () => {
             <div className="container" style={{
                 maxWidth: '1000px',
                 margin: '0 auto',
-                padding: '0 2rem',
+                padding: '0 clamp(1rem, 4vw, 2rem)',
                 position: 'relative',
                 zIndex: 1,
             }}>
@@ -87,16 +87,18 @@ const Projects = () => {
                     position: 'absolute',
                     top: '-15px',
                     left: '0',
-                    fontSize: '6rem',
+                    fontSize: 'clamp(2.8rem, 8vw, 6rem)',
                     fontWeight: 900,
-                    color: 'rgba(255, 255, 255, 0.06)',
+                    color: 'rgba(255, 255, 255, 0.05)',
                     fontFamily: "'Inter', sans-serif",
-                    letterSpacing: '-3px',
+                    letterSpacing: '-2px',
                     textTransform: 'uppercase',
                     lineHeight: 1,
                     pointerEvents: 'none',
                     whiteSpace: 'nowrap',
                     userSelect: 'none',
+                    maxWidth: '100%',
+                    overflow: 'hidden',
                 }}>
                     My Project
                 </div>
@@ -105,14 +107,14 @@ const Projects = () => {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    marginBottom: '3rem',
+                    marginBottom: '2.5rem',
                     flexWrap: 'wrap',
                     gap: '1rem',
                 }}>
                     <div>
                         <h2 className="section-title" style={{
                             color: '#FFFFFF',
-                            fontSize: '1.8rem',
+                            fontSize: 'clamp(1.6rem, 5vw, 2rem)',
                             fontWeight: 700,
                             marginBottom: '0.25rem',
                             letterSpacing: '-0.3px',
@@ -121,7 +123,7 @@ const Projects = () => {
                         </h2>
                         <p style={{
                             color: '#A0A0A0',
-                            fontSize: '0.95rem',
+                            fontSize: 'clamp(0.85rem, 2.5vw, 0.95rem)',
                         }}>
                             My recent work and projects
                         </p>
@@ -132,17 +134,17 @@ const Projects = () => {
                     {currentProjects.map((project, index) => (
                         <div
                             key={index}
+                            className="project-card"
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '1.2rem',
-                                padding: '0.8rem 1.5rem 0.8rem 0.8rem',
+                                padding: '0.9rem 1.4rem 0.9rem 0.9rem',
                                 background: 'rgba(255, 255, 255, 0.02)',
                                 borderRadius: '14px',
                                 border: '1px solid rgba(255, 255, 255, 0.04)',
                                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                                 cursor: 'pointer',
-                                flexWrap: 'wrap',
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.borderColor = 'rgba(255, 59, 29, 0.3)';
@@ -157,7 +159,7 @@ const Projects = () => {
                                 e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
                             }}
                         >
-                            <div style={{
+                            <div className="project-card-thumb" style={{
                                 width: '80px',
                                 height: '80px',
                                 borderRadius: '10px',
@@ -176,28 +178,21 @@ const Projects = () => {
                                 />
                             </div>
 
-                            <div style={{
+                            <div className="project-card-info" style={{
                                 flex: 1,
-                                minWidth: '180px',
+                                minWidth: 0,
                             }}>
-                                {/* JUDUL & KATEGORI TETAP 1 BARIS */}
-                                <div style={{
+                                <div className="project-card-title-row" style={{
                                     display: 'flex',
                                     alignItems: 'center',
                                     gap: '0.75rem',
-                                    marginBottom: '0.25rem',
-                                    flexWrap: 'nowrap',
-                                    overflow: 'hidden',
+                                    marginBottom: '0.35rem',
+                                    flexWrap: 'wrap',
                                 }}>
-                                    <h3 style={{
+                                    <h3 className="project-card-title" style={{
                                         fontSize: '1.05rem',
                                         fontWeight: 600,
                                         color: '#FFFFFF',
-                                        whiteSpace: 'nowrap',
-                                        overflow: 'hidden',
-                                        textOverflow: 'ellipsis',
-                                        flexShrink: 1,
-                                        minWidth: 0,
                                     }}>
                                         {project.name}
                                     </h3>
@@ -214,10 +209,10 @@ const Projects = () => {
                                         {project.category}
                                     </span>
                                 </div>
-                                <p style={{ color: '#A0A0A0', fontSize: '0.85rem' }}>{project.desc}</p>
+                                <p style={{ color: '#A0A0A0', fontSize: '0.85rem', lineHeight: 1.5 }}>{project.desc}</p>
                             </div>
 
-                            <div style={{
+                            <div className="project-card-actions" style={{
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '1rem',
@@ -230,12 +225,13 @@ const Projects = () => {
                                         background: '#FF3B1D',
                                         color: 'white',
                                         border: 'none',
-                                        padding: '0.35rem 1.2rem',
+                                        padding: '0.45rem 1.3rem',
                                         borderRadius: '50px',
                                         fontSize: '0.8rem',
-                                        fontWeight: 500,
+                                        fontWeight: 600,
                                         cursor: 'pointer',
                                         transition: 'all 0.3s ease',
+                                        whiteSpace: 'nowrap',
                                     }}
                                     onMouseEnter={(e) => {
                                         e.currentTarget.style.background = '#D42A0A';
@@ -341,6 +337,24 @@ const Projects = () => {
                     onClose={() => setSelectedProject(null)}
                 />
             )}
+
+            <style>{`
+                @media (max-width: 680px) {
+                    .project-card {
+                        flex-direction: column !important;
+                        align-items: flex-start !important;
+                        padding: 1.1rem !important;
+                        gap: 1rem !important;
+                    }
+                    .project-card-actions {
+                        width: 100% !important;
+                        justify-content: space-between !important;
+                        margin-left: 0 !important;
+                        border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+                        padding-top: 0.8rem !important;
+                    }
+                }
+            `}</style>
         </section>
     );
 };

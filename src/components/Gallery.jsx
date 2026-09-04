@@ -108,7 +108,7 @@ const Gallery = () => {
 
     return (
         <section id="testimonials" style={{
-            padding: '7rem 0',
+            padding: 'clamp(3.5rem, 7vw, 6.5rem) 0',
             background: `linear-gradient(rgba(10, 10, 10, 0.93), rgba(10, 10, 10, 0.93)), url(${bgImage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -119,12 +119,12 @@ const Gallery = () => {
             <div style={{
                 maxWidth: '1100px',
                 width: '100%',
-                padding: '0 2rem',
+                padding: '0 clamp(1rem, 4vw, 2rem)',
             }}>
-                <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+                <div style={{ textAlign: 'center', marginBottom: 'clamp(1.8rem, 4vw, 2.5rem)' }}>
                     <h2 style={{
                         color: '#FFFFFF',
-                        fontSize: '1.8rem',
+                        fontSize: 'clamp(1.6rem, 5vw, 2rem)',
                         fontWeight: 700,
                         marginBottom: '0.25rem',
                     }}>
@@ -132,7 +132,7 @@ const Gallery = () => {
                     </h2>
                     <p style={{
                         color: '#A0A0A0',
-                        fontSize: '0.95rem',
+                        fontSize: 'clamp(0.85rem, 2.5vw, 0.95rem)',
                         maxWidth: '500px',
                         margin: '0 auto',
                     }}>
@@ -163,11 +163,7 @@ const Gallery = () => {
                         }} />
                     </div>
 
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(3, 1fr)',
-                        gap: '1.5rem',
-                    }}>
+                    <div className="gallery-grid">
                         {currentTeamItems.map((item) => (
                             <div
                                 key={item.id}
@@ -369,11 +365,7 @@ const Gallery = () => {
                         }} />
                     </div>
 
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(3, 1fr)',
-                        gap: '1.5rem',
-                    }}>
+                    <div className="gallery-grid">
                         {currentCertItems.map((item) => (
                             <div
                                 key={item.id}
@@ -560,6 +552,26 @@ const Gallery = () => {
                     onClose={() => setSelectedItem(null)}
                 />
             )}
+
+            <style>{`
+                .gallery-grid {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 1.5rem;
+                }
+                @media (max-width: 900px) {
+                    .gallery-grid {
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 1.2rem;
+                    }
+                }
+                @media (max-width: 580px) {
+                    .gallery-grid {
+                        grid-template-columns: 1fr;
+                        gap: 1.2rem;
+                    }
+                }
+            `}</style>
         </section>
     );
 };

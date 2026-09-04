@@ -22,7 +22,7 @@ const Skills = () => {
 
     return (
         <section id="skills" style={{
-            padding: '16rem 0',
+            padding: 'clamp(4rem, 8vw, 7.5rem) 0',
             background: '#0A0A0A',
             display: 'flex',
             justifyContent: 'center',
@@ -32,7 +32,7 @@ const Skills = () => {
             <div style={{
                 maxWidth: '1000px',
                 width: '100%',
-                padding: '0 2rem',
+                padding: '0 clamp(1rem, 4vw, 2rem)',
                 position: 'relative',
                 zIndex: 1,
             }}>
@@ -42,7 +42,7 @@ const Skills = () => {
                 <div style={{
                     position: 'relative',
                     textAlign: 'center',
-                    marginBottom: '2.5rem',
+                    marginBottom: 'clamp(1.8rem, 4vw, 2.5rem)',
                 }}>
                     {/* Background Text - "My Skills" */}
                     <div style={{
@@ -50,17 +50,18 @@ const Skills = () => {
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        fontSize: '6rem',
+                        fontSize: 'clamp(2.8rem, 8vw, 6rem)',
                         fontWeight: 900,
                         color: 'rgba(255, 255, 255, 0.03)',
                         fontFamily: "'Inter', sans-serif",
-                        letterSpacing: '-3px',
+                        letterSpacing: '-2px',
                         textTransform: 'uppercase',
                         lineHeight: 1,
                         pointerEvents: 'none',
                         userSelect: 'none',
                         whiteSpace: 'nowrap',
                         width: '100%',
+                        overflow: 'hidden',
                     }}>
                         My Skills
                     </div>
@@ -69,7 +70,7 @@ const Skills = () => {
                     <div style={{ position: 'relative', zIndex: 1 }}>
                         <h2 style={{
                             color: '#FFFFFF',
-                            fontSize: '1.8rem',
+                            fontSize: 'clamp(1.6rem, 5vw, 2rem)',
                             fontWeight: 700,
                             marginBottom: '0.25rem',
                         }}>
@@ -77,7 +78,7 @@ const Skills = () => {
                         </h2>
                         <p style={{
                             color: '#A0A0A0',
-                            fontSize: '0.95rem',
+                            fontSize: 'clamp(0.85rem, 2.5vw, 0.95rem)',
                             maxWidth: '450px',
                             margin: '0 auto',
                         }}>
@@ -86,11 +87,7 @@ const Skills = () => {
                     </div>
                 </div>
 
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(4, 1fr)',
-                    gap: '1.5rem',
-                }}>
+                <div className="skills-grid">
                     {skills.map((skill, index) => (
                         <div
                             key={index}
@@ -98,7 +95,7 @@ const Skills = () => {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
-                                padding: '1.5rem 1rem',
+                                padding: 'clamp(1.2rem, 3vw, 1.5rem) 1rem',
                                 borderRadius: '14px',
                                 background: 'rgba(255, 255, 255, 0.02)',
                                 border: '1px solid rgba(255, 255, 255, 0.04)',
@@ -106,16 +103,16 @@ const Skills = () => {
                                 cursor: 'default',
                             }}
                             onMouseEnter={(e) => {
-                                e.target.style.borderColor = 'rgba(255, 59, 29, 0.3)';
-                                e.target.style.transform = 'translateY(-4px)';
-                                e.target.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.3)';
-                                e.target.style.background = 'rgba(255, 255, 255, 0.04)';
+                                e.currentTarget.style.borderColor = 'rgba(255, 59, 29, 0.3)';
+                                e.currentTarget.style.transform = 'translateY(-4px)';
+                                e.currentTarget.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.3)';
+                                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
                             }}
                             onMouseLeave={(e) => {
-                                e.target.style.borderColor = 'rgba(255, 255, 255, 0.04)';
-                                e.target.style.transform = 'translateY(0)';
-                                e.target.style.boxShadow = 'none';
-                                e.target.style.background = 'rgba(255, 255, 255, 0.02)';
+                                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.04)';
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.boxShadow = 'none';
+                                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
                             }}
                         >
                             <div style={{
@@ -158,6 +155,26 @@ const Skills = () => {
                     ))}
                 </div>
             </div>
+
+            <style>{`
+                .skills-grid {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 1.5rem;
+                }
+                @media (max-width: 900px) {
+                    .skills-grid {
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 1.2rem;
+                    }
+                }
+                @media (max-width: 600px) {
+                    .skills-grid {
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 1rem;
+                    }
+                }
+            `}</style>
         </section>
     );
 };
