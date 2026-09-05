@@ -3,20 +3,7 @@ import { Mail, MapPin, Send, CheckCircle, AlertCircle, Loader } from 'lucide-rea
 import emailjs from '@emailjs/browser';
 
 // ============================================
-// SETUP EMAILJS - Ikuti langkah berikut:
-// 1. Buka https://www.emailjs.com/ → Sign Up (gratis)
-// 2. Buat Email Service → pilih Gmail → connect akun alghifarim60@gmail.com
-//    → Copy "Service ID" (contoh: service_xxxxxx)
-// 3. Buat Email Template → isi:
-//    Subject: New Portfolio Message from {{from_name}}
-//    Content:
-//      Name: {{from_name}}
-//      Email: {{from_email}}
-//      Subject: {{subject}}
-//      Message: {{message}}
-//    → Copy "Template ID" (contoh: template_xxxxxx)
-// 4. Di Account → Copy "Public Key" (contoh: xxxxxxxxx)
-// 5. Ganti 3 value di bawah ini:
+// SETUP EMAILJS - Environment Variables
 // ============================================
 const EMAILJS_SERVICE_ID = import.meta.env.EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.EMAILJS_TEMPLATE_ID;
@@ -24,13 +11,14 @@ const EMAILJS_PUBLIC_KEY = import.meta.env.EMAILJS_PUBLIC_KEY;
 
 const Contact = () => {
     const formRef = useRef();
-    const [status, setStatus] = useState('idle'); // idle | sending | success | error
+    const [status, setStatus] = useState('idle');
     const [sendCount, setSendCount] = useState(0);
     const [lastSendTime, setLastSendTime] = useState(0);
     const [formData, setFormData] = useState({
         from_name: '',
         from_email: '',
         subject: '',
+        topic: '',
         message: '',
     });
 
@@ -41,14 +29,13 @@ const Contact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Honeypot check - jika bot mengisi field tersembunyi, tolak
         const honeypot = formRef.current.querySelector('input[name="bot_trap"]');
         if (honeypot && honeypot.value) {
-            setStatus('success'); // Pura-pura berhasil agar bot tidak tahu
+            setStatus('success');
+            setTimeout(() => setStatus('idle'), 3000);
             return;
         }
 
-        // Rate limiting - max 3 pesan per 10 menit
         const now = Date.now();
         if (now - lastSendTime < 600000 && sendCount >= 3) {
             setStatus('error');
@@ -71,7 +58,7 @@ const Contact = () => {
             setStatus('success');
             setSendCount((prev) => prev + 1);
             setLastSendTime(Date.now());
-            setFormData({ from_name: '', from_email: '', subject: '', message: '' });
+            setFormData({ from_name: '', from_email: '', subject: '', topic: '', message: '' });
             setTimeout(() => setStatus('idle'), 4000);
         } catch (error) {
             console.error('EmailJS Error:', error);
@@ -88,19 +75,32 @@ const Contact = () => {
         transition: 'all 0.3s ease',
         outline: 'none',
         background: 'rgba(255, 255, 255, 0.03)',
-        color: '#FFFFFF',
+        color: '#A0A0A0',
         width: '100%',
     };
 
     const handleFocus = (e) => {
         e.target.style.borderColor = '#FF3B1D';
         e.target.style.boxShadow = '0 0 0 3px rgba(255, 59, 29, 0.08)';
+        e.target.style.color = '#FFFFFF';
     };
 
     const handleBlur = (e) => {
         e.target.style.borderColor = 'rgba(255,255,255,0.06)';
         e.target.style.boxShadow = 'none';
+        e.target.style.color = '#A0A0A0';
     };
+
+    const topicOptions = [
+        { value: '', label: 'Select a topic (optional)' },
+        { value: 'Job Offer / Recruitment', label: '💼 Job Offer / Recruitment' },
+        { value: 'Project Collaboration', label: '🤝 Project Collaboration' },
+        { value: 'Casual Discussion', label: '💬 Casual Discussion' },
+        { value: 'Graphic Design Services', label: '🎨 Graphic Design Services' },
+        { value: 'UI/UX Consultation', label: '🖌️ UI/UX Consultation' },
+        { value: 'Partnership', label: '🤝 Partnership' },
+        { value: 'Other', label: '📌 Other' },
+    ];
 
     return (
         <section id="contact" style={{
@@ -145,7 +145,6 @@ const Contact = () => {
                         flexDirection: 'column',
                         gap: '1rem',
                     }}>
-                        {/* Email Card */}
                         <a
                             href="mailto:alghifarim60@gmail.com"
                             style={{
@@ -190,7 +189,6 @@ const Contact = () => {
                             </div>
                         </a>
 
-                        {/* Address Card */}
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -215,11 +213,10 @@ const Contact = () => {
                             </div>
                             <div>
                                 <p style={{ fontSize: '0.7rem', color: '#A0A0A0', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.2rem' }}>Address</p>
-                                <p style={{ fontWeight: 500, fontSize: '1rem', color: '#FFFFFF' }}>Jalan Kilang Padi Pasar 9, Sumatera utara, Medan, Indonesia </p>
+                                <p style={{ fontWeight: 500, fontSize: '1rem', color: '#FFFFFF' }}>Jalan Kilang Padi Pasar 9, Sumatera Utara, Medan, Indonesia</p>
                             </div>
                         </div>
 
-                        {/* CTA Text */}
                         <div style={{
                             padding: '1.4rem 1.5rem',
                             borderRadius: '14px',
@@ -250,9 +247,25 @@ const Contact = () => {
                             flexDirection: 'column',
                             gap: '1rem',
                             border: '1px solid rgba(255, 255, 255, 0.04)',
+                            position: 'relative',
                         }}
                         onSubmit={handleSubmit}
                     >
+                        {/* Honeypot */}
+                        <input
+                            type="text"
+                            name="bot_trap"
+                            style={{
+                                position: 'absolute',
+                                opacity: 0,
+                                height: 0,
+                                width: 0,
+                                pointerEvents: 'none',
+                            }}
+                            tabIndex="-1"
+                            autoComplete="off"
+                        />
+
                         <div style={{ marginBottom: '0.3rem' }}>
                             <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#FFFFFF', marginBottom: '0.3rem' }}>Send a Message</h3>
                             <p style={{ color: '#A0A0A0', fontSize: '0.85rem' }}>Your message will be sent directly to my email</p>
@@ -262,7 +275,7 @@ const Contact = () => {
                             <input
                                 type="text"
                                 name="from_name"
-                                placeholder="Your Name"
+                                placeholder="Your Name *"
                                 value={formData.from_name}
                                 onChange={handleChange}
                                 required
@@ -273,7 +286,7 @@ const Contact = () => {
                             <input
                                 type="email"
                                 name="from_email"
-                                placeholder="Your Email"
+                                placeholder="Your Email *"
                                 value={formData.from_email}
                                 onChange={handleChange}
                                 required
@@ -282,6 +295,34 @@ const Contact = () => {
                                 onBlur={handleBlur}
                             />
                         </div>
+
+                        {/* TOPIC DROPDOWN - WARNA SAMA DENGAN "Your Name" */}
+                        <select
+                            name="topic"
+                            value={formData.topic}
+                            onChange={handleChange}
+                            style={{
+                                ...inputStyle,
+                                appearance: 'none',
+                                cursor: 'pointer',
+                                color: '#A0A0A0',
+                            }}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                        >
+                            {topicOptions.map((option) => (
+                                <option
+                                    key={option.value}
+                                    value={option.value}
+                                    style={{
+                                        background: '#1A1A1A',
+                                        color: '#A0A0A0',
+                                    }}
+                                >
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
 
                         <input
                             type="text"
@@ -296,7 +337,7 @@ const Contact = () => {
 
                         <textarea
                             name="message"
-                            placeholder="Your Message"
+                            placeholder="Your Message *"
                             rows={5}
                             value={formData.message}
                             onChange={handleChange}
@@ -408,6 +449,10 @@ const Contact = () => {
                 }
                 .spin-icon {
                     animation: spin 1s linear infinite;
+                }
+                select option {
+                    background: #1A1A1A;
+                    color: #A0A0A0;
                 }
             `}</style>
         </section>

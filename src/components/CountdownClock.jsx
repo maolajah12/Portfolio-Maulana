@@ -18,7 +18,6 @@ const CountdownClock = () => {
 
     // Format waktu
     useEffect(() => {
-        // Trigger animasi entrance
         const mountTimer = setTimeout(() => setIsMounted(true), 100);
 
         const updateClock = () => {
@@ -48,11 +47,9 @@ const CountdownClock = () => {
             const rect = logo.getBoundingClientRect();
             const isMobile = window.innerWidth <= 768;
 
-            // Ukuran docked clock yang presisi dan rapi
             const targetDockedWidth = isMobile ? 84 : 108;
-            const marginFromLogo = isMobile ? 18 : 24; // Jarak pasti dari sisi kanan logo "Portfolio."
+            const marginFromLogo = isMobile ? 18 : 24;
 
-            // Hitung lebar unscaled teks jam saat ini untuk menentukan scale dinamis yang presisi
             let unscaledWidth = 350;
             if (clockTextRef.current) {
                 unscaledWidth = clockTextRef.current.offsetWidth || 350;
@@ -60,12 +57,9 @@ const CountdownClock = () => {
 
             const dynamicScale = targetDockedWidth / unscaledWidth;
 
-            // X: Posisi tengah clock target = sisi kanan logo + margin + setengah lebar target clock
             const targetX = rect.right + marginFromLogo + (targetDockedWidth / 2);
-            // Y: Sejajar tepat secara vertikal dengan tengah logo Portfolio
             const targetY = rect.top + (rect.height / 2);
 
-            // Selisih antara posisi target dengan titik tengah layar (0,0 dari transform)
             const moveX = targetX - (window.innerWidth / 2);
             const moveY = targetY - (window.innerHeight / 2);
 
@@ -73,7 +67,6 @@ const CountdownClock = () => {
         }
     }, []);
 
-    // Listener untuk resize/zoom agar posisi jam tetap akurat
     useEffect(() => {
         if (stage === 'shrinking' || stage === 'docked') {
             window.addEventListener('resize', calculateDockPosition);
@@ -81,23 +74,22 @@ const CountdownClock = () => {
         }
     }, [stage, calculateDockPosition]);
 
-    // Sequence logic
+    // Sequence logic - KECEPATAN SEDANG (tidak terlalu cepat, tidak terlalu lambat)
     useEffect(() => {
         if (stage === 'ticking') {
-            // Setelah 5 detik ticking, mulai shrinking
+            // 3.5 detik - sedang
             const timer = setTimeout(() => {
                 calculateDockPosition();
                 setStage('shrinking');
-            }, 5000);
+            }, 3500);
             return () => clearTimeout(timer);
         } else if (stage === 'shrinking') {
-            // Fade out audio
             fadeOutAudio();
 
-            // Setelah animasi CSS selesai (misal 1.5 detik), pindah ke docked
+            // 1.0 detik - sedang
             const timer = setTimeout(() => {
                 setStage('docked');
-            }, 1500);
+            }, 1000);
             return () => clearTimeout(timer);
         }
     }, [stage]);
@@ -125,7 +117,7 @@ const CountdownClock = () => {
         audioRef.current.volume = 0;
         let vol = 0;
         const fadeInterval = setInterval(() => {
-            vol += 0.05;
+            vol += 0.06;
             if (vol >= 1) {
                 vol = 1;
                 clearInterval(fadeInterval);
@@ -133,7 +125,7 @@ const CountdownClock = () => {
             if (audioRef.current) {
                 audioRef.current.volume = vol;
             }
-        }, 30); // 20 steps of 30ms = 600ms (0.6 detik) sinkron dengan animasi CSS pop-in
+        }, 30);
     };
 
     const fadeOutAudio = () => {
@@ -141,7 +133,7 @@ const CountdownClock = () => {
 
         let vol = 1;
         const fadeInterval = setInterval(() => {
-            vol -= 0.05;
+            vol -= 0.06;
             if (vol <= 0) {
                 vol = 0;
                 clearInterval(fadeInterval);
@@ -153,12 +145,12 @@ const CountdownClock = () => {
             if (audioRef.current) {
                 audioRef.current.volume = vol;
             }
-        }, 100); // Turunkan volume bertahap selama 2 detik
+        }, 80);
     };
 
     const playTick = () => {
         if (audioRef.current) {
-            audioRef.current.loop = true; // Biarkan file mp3 me-loop secara natural
+            audioRef.current.loop = true;
             audioRef.current.play().catch(e => console.log('Audio error:', e));
         }
     };
@@ -197,7 +189,6 @@ const CountdownClock = () => {
     const isBackgroundVisible = stage === 'initial' || stage === 'ticking';
     const isShrinkingOrDocked = stage === 'shrinking' || stage === 'docked';
 
-    // Posisi transform berdasarkan stage
     let containerStyle = {
         position: 'fixed',
         top: 0,
@@ -210,11 +201,10 @@ const CountdownClock = () => {
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        transition: 'background 2s ease-in-out',
+        transition: 'background 1.5s ease-in-out',
         pointerEvents: isShrinkingOrDocked ? 'none' : 'auto',
     };
 
-    // Styling untuk konten clock (bisa ditransform)
     let contentStyle = {
         position: 'relative',
         zIndex: 1,
@@ -224,16 +214,15 @@ const CountdownClock = () => {
         justifyContent: 'center',
         gap: '0.5rem',
         transition: stage === 'shrinking'
-            ? 'all 1.5s ease-in-out'
-            : stage === 'ticking' ? 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none',
+            ? 'all 1s ease-in-out'
+            : stage === 'ticking' ? 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none',
         transform: isShrinkingOrDocked ? dockTransform : stage === 'initial' ? 'translate(0, 20px) scale(0.9)' : 'translate(0, 0) scale(1)',
-        opacity: stage === 'initial' ? 0 : 1, // Sembunyikan jam saat initial
-        pointerEvents: isShrinkingOrDocked ? 'auto' : 'none', // Supaya button unmute bisa diklik kalau docked
+        opacity: stage === 'initial' ? 0 : 1,
+        pointerEvents: isShrinkingOrDocked ? 'auto' : 'none',
     };
 
     return (
         <div className="clock-container" style={containerStyle}>
-            {/* Dekorasi background */}
             <div style={{
                 position: 'absolute',
                 top: 0,
@@ -243,7 +232,7 @@ const CountdownClock = () => {
                 background: 'radial-gradient(circle at center, rgba(255, 59, 29, 0.05) 0%, transparent 70%)',
                 opacity: isBackgroundVisible ? (isMounted ? 1 : 0) : 0,
                 transform: isMounted ? 'scale(1)' : 'scale(1.1)',
-                transition: 'opacity 2s ease-out, transform 3s ease-out',
+                transition: 'opacity 1.8s ease-out, transform 2.8s ease-out',
             }} />
 
             <div style={{
@@ -257,7 +246,7 @@ const CountdownClock = () => {
                 border: '1px solid rgba(255, 59, 29, 0.03)',
                 pointerEvents: 'none',
                 opacity: isBackgroundVisible ? 1 : 0,
-                transition: 'opacity 2s ease-in-out',
+                transition: 'opacity 1.8s ease-in-out',
             }} />
 
             {/* Tombol Ready to Work */}
@@ -274,7 +263,7 @@ const CountdownClock = () => {
                     maxWidth: '90vw',
                     opacity: isMounted ? 1 : 0,
                     transform: isMounted ? 'translateY(0)' : 'translateY(30px)',
-                    transition: 'opacity 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                    transition: 'opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1)',
                     transitionDelay: '0.3s'
                 }}>
                     <h2 style={{

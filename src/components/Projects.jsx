@@ -13,6 +13,8 @@ import gym3 from '../assets/Gym 3.png';
 import bpjs1 from '../assets/Bpjs 1.png';
 import bpjs2 from '../assets/Bpjs 2.png';
 import bpjs3 from '../assets/Bpjs 3.png';
+import bpjs4 from '../assets/Bpjs 4.png';
+import bpjs5 from '../assets/Bpjs 5.png';
 
 const Projects = () => {
     const [selectedProject, setSelectedProject] = useState(null);
@@ -47,9 +49,20 @@ const Projects = () => {
             year: '2025',
             category: 'Fullstack Web - IT Internship',
             image: bpjs1,
-            detailTitle: 'BPJS Monitoring System',
+            detailTitle: 'BPJS Ketenagakerjaan Internal Monitoring System',
             detailDesc: 'Developed internal information system modules within the IT Division, including an attendance tracking system and operational data visualization dashboards.',
             images: [bpjs1, bpjs2, bpjs3],
+            tools: ['PHP', 'CodeIgniter', 'MySQL', 'Bootstrap', 'Chart.js'],
+        },
+        {
+            name: 'Dashboard Perlindungan Jamsostek Sektor Nelayan Provinsi Sumatera Utara',
+            desc: 'Dashboard Monitoring Sektor Nelayan',
+            year: '2025',
+            category: 'Web Development',
+            image: bpjs4,
+            detailTitle: 'Dashboard Perlindungan Jamsostek Sektor Nelayan Provinsi Sumatera Utara',
+            detailDesc: 'An internal data visualization dashboard designed to monitor labor social security (Jamsostek) coverage for the fishery sector in North Sumatra',
+            images: [bpjs4, bpjs5],
             tools: ['PHP', 'CodeIgniter', 'MySQL', 'Bootstrap', 'Chart.js'],
         },
     ];
