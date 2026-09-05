@@ -18,9 +18,9 @@ import emailjs from '@emailjs/browser';
 // 4. Di Account → Copy "Public Key" (contoh: xxxxxxxxx)
 // 5. Ganti 3 value di bawah ini:
 // ============================================
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const EMAILJS_SERVICE_ID = import.meta.env.EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.EMAILJS_PUBLIC_KEY;
 
 const Contact = () => {
     const formRef = useRef();
