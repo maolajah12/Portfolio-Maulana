@@ -30,7 +30,7 @@ const Projects = () => {
             detailTitle: 'Ayo Ngegym',
             detailDesc: 'Developed a personalized fitness and nutrition tracking system tailored to user biometrics (age, weight, and height).',
             images: [gym1, gym2, gym3],
-            tools: ['React Native', 'Firebase', 'Chart.js', 'Expo', 'Tailwind CSS'],
+            tools: ['React.Js', 'Rest Api', 'API', 'Gemini API',],
         },
         {
             name: 'Château Lumière',
@@ -41,7 +41,7 @@ const Projects = () => {
             detailTitle: 'Château Lumière',
             detailDesc: 'Developed an integrated fine-dining reservation web platform, featuring an exclusive menu catalog, interactive floor-plan table booking, payment simulations, and comprehensive customer reservation history management',
             images: [restoran1, restoran2, restoran3],
-            tools: ['Laravel', 'MySQL', 'Tailwind CSS', 'Livewire', 'Alpine.js'],
+            tools: ['PHP', 'MySQL', 'Tailwind CSS', 'JavaScript',],
         },
         {
             name: 'BPJS Ketenagakerjaan Internal Monitoring System',
@@ -52,7 +52,7 @@ const Projects = () => {
             detailTitle: 'BPJS Ketenagakerjaan Internal Monitoring System',
             detailDesc: 'Developed internal information system modules within the IT Division, including an attendance tracking system and operational data visualization dashboards.',
             images: [bpjs1, bpjs2, bpjs3],
-            tools: ['PHP', 'CodeIgniter', 'MySQL', 'Bootstrap', 'Chart.js'],
+            tools: ['Laravel', 'React.Js', 'PHP', 'MySQL'],
         },
         {
             name: 'Dashboard Perlindungan Jamsostek Sektor Nelayan Provinsi Sumatera Utara',
@@ -63,7 +63,7 @@ const Projects = () => {
             detailTitle: 'Dashboard Perlindungan Jamsostek Sektor Nelayan Provinsi Sumatera Utara',
             detailDesc: 'An internal data visualization dashboard designed to monitor labor social security (Jamsostek) coverage for the fishery sector in North Sumatra',
             images: [bpjs4, bpjs5],
-            tools: ['PHP', 'CodeIgniter', 'MySQL', 'Bootstrap', 'Chart.js'],
+            tools: ['Html', 'css', 'Bootstrap', 'Chart.js'],
         },
     ];
 

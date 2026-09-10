@@ -9,15 +9,16 @@ import {
 } from 'lucide-react';
 
 const Skills = () => {
+    // Semua skill sekarang memiliki levelText "Intermediate"
     const skills = [
-        { name: 'Mobile Dev', icon: <Smartphone size={28} color="#FF3B1D" strokeWidth={1.5} />, level: 85 },
-        { name: 'React', icon: <Code2 size={28} color="#FF3B1D" strokeWidth={1.5} />, level: 90 },
-        { name: 'JavaScript', icon: <Layout size={28} color="#FF3B1D" strokeWidth={1.5} />, level: 88 },
-        { name: 'Flutter', icon: <Box size={28} color="#FF3B1D" strokeWidth={1.5} />, level: 80 },
-        { name: 'Python', icon: <Server size={28} color="#FF3B1D" strokeWidth={1.5} />, level: 78 },
-        { name: 'PHP', icon: <Database size={28} color="#FF3B1D" strokeWidth={1.5} />, level: 85 },
-        { name: 'Laravel', icon: <Globe size={28} color="#FF3B1D" strokeWidth={1.5} />, level: 82 },
-        { name: 'MySQL', icon: <Database size={28} color="#FF3B1D" strokeWidth={1.5} />, level: 85 },
+        { name: 'Mobile Dev', icon: <Smartphone size={28} color="#FF3B1D" strokeWidth={1.5} />, levelText: 'Intermediate' },
+        { name: 'React', icon: <Code2 size={28} color="#FF3B1D" strokeWidth={1.5} />, levelText: 'Intermediate' },
+        { name: 'JavaScript', icon: <Layout size={28} color="#FF3B1D" strokeWidth={1.5} />, levelText: 'Intermediate' },
+        { name: 'Flutter', icon: <Box size={28} color="#FF3B1D" strokeWidth={1.5} />, levelText: 'Intermediate' },
+        { name: 'Python', icon: <Server size={28} color="#FF3B1D" strokeWidth={1.5} />, levelText: 'Intermediate' },
+        { name: 'PHP', icon: <Database size={28} color="#FF3B1D" strokeWidth={1.5} />, levelText: 'Intermediate' },
+        { name: 'Laravel', icon: <Globe size={28} color="#FF3B1D" strokeWidth={1.5} />, levelText: 'Intermediate' },
+        { name: 'MySQL', icon: <Database size={28} color="#FF3B1D" strokeWidth={1.5} />, levelText: 'Intermediate' },
     ];
 
     return (
@@ -37,7 +38,7 @@ const Skills = () => {
                 zIndex: 1,
             }}>
                 {/* =========================================== */}
-                {/* BACKGROUND TEXT "My Skills" - UKURAN SAMA DENGAN "My Project" */}
+                {/* BACKGROUND TEXT "My Skills" */}
                 {/* =========================================== */}
                 <div style={{
                     position: 'relative',
@@ -66,7 +67,7 @@ const Skills = () => {
                         My Skills
                     </div>
 
-                    {/* Foreground Text - "Tools and Skills" */}
+                    {/* Foreground Text */}
                     <div style={{ position: 'relative', zIndex: 1 }}>
                         <h2 style={{
                             color: '#FFFFFF',
@@ -95,6 +96,7 @@ const Skills = () => {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
+                                justifyContent: 'center',
                                 padding: 'clamp(1.2rem, 3vw, 1.5rem) 1rem',
                                 borderRadius: '14px',
                                 background: 'rgba(255, 255, 255, 0.02)',
@@ -127,30 +129,31 @@ const Skills = () => {
                             }}>
                                 {skill.icon}
                             </div>
+
+                            {/* Nama Teknologi */}
                             <span style={{
                                 fontWeight: 500,
                                 fontSize: '0.9rem',
                                 color: '#FFFFFF',
                                 textAlign: 'center',
+                                marginBottom: '0.35rem',
                             }}>
                                 {skill.name}
                             </span>
-                            <div style={{
-                                marginTop: '0.5rem',
-                                width: '100%',
-                                height: '3px',
-                                background: 'rgba(255,255,255,0.06)',
-                                borderRadius: '10px',
-                                overflow: 'hidden',
+
+                            {/* Teks Level - Semua "Intermediate" */}
+                            <span style={{
+                                fontSize: '0.7rem',
+                                color: '#FF3B1D',
+                                fontWeight: 600,
+                                letterSpacing: '0.5px',
+                                textTransform: 'uppercase',
+                                background: 'rgba(255, 59, 29, 0.1)',
+                                padding: '3px 10px',
+                                borderRadius: '20px',
                             }}>
-                                <div style={{
-                                    width: `${skill.level}%`,
-                                    height: '100%',
-                                    background: '#FF3B1D',
-                                    borderRadius: '10px',
-                                    transition: 'width 0.6s ease',
-                                }} />
-                            </div>
+                                {skill.levelText}
+                            </span>
                         </div>
                     ))}
                 </div>

@@ -248,11 +248,14 @@ const Hero = () => {
                         fontSize: 'clamp(0.88rem, 2.5vw, 0.95rem)',
                         textAlign: 'justify',
                     }}>
-                        I'm an Informatics Engineering graduate from the University of North Sumatra with a strong interest in building digital products that are functional, smart, and user-friendly.
-
-                        I work comfortably across three areas—front-end development with React.js, data processing with Python, and UI design with Figma. I'm at a solid intermediate level in all three, which means I can build real things, collaborate across teams, and most importantly I know exactly where to look when I need to go deeper.
-
-                        What I bring to the table is not just technical skills, but the ability to connect the dots between design, data, and code. I'm a fast learner, highly adaptable, and always excited to take on new challenges. Right now, I'm looking for a team where I can grow, contribute, and learn from experienced professionals.
+                        An adaptable and detail-oriented Informatics Engineering graduate with experience developing
+                        an internal monitoring system for 200 interns at a public service institution (BPJS
+                        Ketenagakerjaan) and maintaining the archive center system at PT. Bank Sumut, specifically
+                        enhancing the frontend and archive data entry functions. Proven track record in translating
+                        complex data into interactive UI/UX designs and BPJS participant dashboard templates.
+                        Specializing in web and mobile development utilizing Laravel, React, Vite, PHP, and Python,
+                        and adept at combining analytical problem-solving with technical execution to streamline
+                        operational workflows.
                     </p>
 
                     <div className="hero-cta" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
