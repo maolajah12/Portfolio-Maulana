@@ -10,6 +10,12 @@ import team3 from '../assets/Foto Bank 3.png';
 import sertif1 from '../assets/Sertif 1.png';
 import sertif2 from '../assets/Sertif 2.png';
 import sertif3 from '../assets/Sertif 3.png';
+import sertif4 from '../assets/Sertif 4.png';
+import sertif5 from '../assets/Sertif 5.png';
+import sertif6 from '../assets/Sertif 6.png';
+import sertif7 from '../assets/Sertif 7.png';
+import sertif8 from '../assets/Sertif 8.png';
+import sertif9 from '../assets/Sertif 9.png';
 
 const Gallery = () => {
     const [teamPage, setTeamPage] = useState(0);
@@ -24,7 +30,7 @@ const Gallery = () => {
             category: 'Team',
             icon: <Users size={24} color="#FF3B1D" />,
             image: team1,
-            desc: 'Bersama tim IT saat menjalani program magang di BPJS Ketenagakerjaan. Pengalaman berharga dalam pengembangan sistem dan kolaborasi tim.',
+            desc: 'With the IT team during my internship at BPJS Ketenagakerjaan. A valuable experience in system development and team collaboration.',
         },
         {
             id: 2,
@@ -32,7 +38,7 @@ const Gallery = () => {
             category: 'Team',
             icon: <Users size={24} color="#FF3B1D" />,
             image: team2,
-            desc: 'Momen kebersamaan dengan tim IT BPJS Ketenagakerjaan saat menyelesaikan proyek akhir magang.',
+            desc: 'A moment shared with the BPJS Ketenagakerjaan IT team upon completing the final internship project.',
         },
         {
             id: 3,
@@ -40,7 +46,7 @@ const Gallery = () => {
             category: 'Team',
             icon: <Users size={24} color="#FF3B1D" />,
             image: team3,
-            desc: 'Tim Pusat Arsip yang solid dalam mengelola dan mendigitalisasi arsip-arsip penting.',
+            desc: 'A solid Archives Center team in managing and digitizing important archives.',
         },
     ];
 
@@ -48,27 +54,75 @@ const Gallery = () => {
     const certificateItems = [
         {
             id: 4,
-            title: 'BPJS Ketenagakerjaan Internship Certificate',
+            title: 'Microsoft Office (Word, Excel, and PowerPoint), Insan Cemerlang Computer Course',
             category: 'Certificate',
             icon: <Award size={24} color="#FF3B1D" />,
-            image: sertif1,
-            desc: 'Sertifikat resmi sebagai bukti telah menyelesaikan program magang di BPJS Ketenagakerjaan dengan predikat baik.',
+            image: sertif8,
+            desc: ' Graduated with an "Excellent" predicate (Score: 92.33) from a 16-hour comprehensive program. Demonstrated solid capabilities in technical document creation, structured data processing, and effective business presentation design.',
         },
         {
             id: 5,
-            title: 'Huawei Course Certificate',
+            title: 'Sistem Manajemen Keselamatan dan Kesehatan Kerja Berbasis SNI ISO 45001:2018, Badan Standardisasi Nasional (BSN)',
             category: 'Certificate',
             icon: <Award size={24} color="#FF3B1D" />,
-            image: sertif2,
-            desc: 'Sertifikat kelulusan kursus Huawei yang mencakup materi jaringan dan teknologi komunikasi modern.',
+            image: sertif4,
+            desc: 'Certificate ofCompletion with "Very Good" predicate, demonstrating understanding of occupational health and safety management systems based on SNI ISO 45001:2018. Valid until October 2027',
         },
         {
             id: 6,
-            title: 'Claude Code Certificate',
+            title: 'CGSA-CCTV (Certified General Security Associate), Hikvision',
+            category: 'Certificate',
+            icon: <Award size={24} color="#FF3B1D" />,
+            image: sertif7,
+            desc: 'Certificate of Completion demonstrating foundational and professional knowledge in security systems, CCTV architecture, and surveillance technology. Valid until September 2031.',
+        },
+        {
+            id: 7,
+            title: 'Data Science Essentials with Python, Cisco Networking Academy',
+            category: 'Certificate',
+            icon: <Award size={24} color="#FF3B1D" />,
+            image: sertif5,
+            desc: 'Certificate of Completion demonstrating foundational skills in Python programming applied to data science, including data handling, basic analysis, and problem solving with Python.',
+        },
+        {
+            id: 8,
+            title: 'Networking Basics, Cisco Networking Academy',
+            category: 'Certificate',
+            icon: <Award size={24} color="#FF3B1D" />,
+            image: sertif6,
+            desc: 'Certificate of Completion demonstrating foundational understanding of computer networking concepts, including network types, topologies, and basic protocols',
+        },
+        {
+            id: 9,
+            title: 'Python Essentials 2, Cisco Networking Academy',
+            category: 'Certificate',
+            icon: <Award size={24} color="#FF3B1D" />,
+            image: sertif6,
+            desc: 'Certificate of Completion demonstrating proficiency in intermediate Python programming concepts, including object-oriented programming, file handling, and exception handling.',
+        },
+        {
+            id: 10,
+            title: 'BPJS Ketenagakerjaan Internship Certificate, BPJS Ketenagakerjaan Cabang Medan Kota',
+            category: 'Certificate',
+            icon: <Award size={24} color="#FF3B1D" />,
+            image: sertif9,
+            desc: 'Certified completion of the Merdeka Belajar Kampus Merdeka (MBKM) professional internship program focusing on IT support, web development, and digital information dissemination.',
+        },
+        {
+            id: 11,
+            title: 'Huawei Course Certificate, Huawei',
+            category: 'Certificate',
+            icon: <Award size={24} color="#FF3B1D" />,
+            image: sertif2,
+            desc: 'Fundamental understanding of Artificial Intelligence (AI) concepts, Machine Learning algorithms, Deep Learning basics, and the integration of AI solutions into software engineering.',
+        },
+        {
+            id: 112,
+            title: 'Claude Code Certificate, Anhtropic',
             category: 'Certificate',
             icon: <Award size={24} color="#FF3B1D" />,
             image: sertif3,
-            desc: 'Sertifikat kompetensi dalam pengembangan aplikasi menggunakan Claude Code dan teknologi AI terkait.',
+            desc: ' Practical application of Large Language Models (LLM) for programming, implementing best practices for AI assisted coding, debugging, and optimizing software development workflows.',
         },
     ];
 
